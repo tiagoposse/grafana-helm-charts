@@ -517,6 +517,8 @@ distributor:
               matchLabels:
                 {{- include "tempo.selectorLabels" (dict "ctx" . "component" "distributor") | nindent 12 }}
             topologyKey: topology.kubernetes.io/zone
+  # -- Init containers for distributor pods
+  initContainers: []
   # -- Pod Disruption Budget maxUnavailable
   maxUnavailable: 1
   # -- Node selector for distributor pods
@@ -583,6 +585,8 @@ compactor:
       #         tempo_build_info{container="compactor", namespace=~".*"}
       #       )
 
+  # -- Init containers for compactor pods
+  initContainers: []
   # -- hostAliases to add
   hostAliases: []
   #  - ip: 1.2.3.4
@@ -729,6 +733,10 @@ querier:
               matchLabels:
                 {{- include "tempo.selectorLabels" (dict "ctx" . "component" "querier" "memberlist" true) | nindent 12 }}
             topologyKey: topology.kubernetes.io/zone
+
+  # -- Init containers for querier pods
+  initContainers: []
+
   # -- Pod Disruption Budget maxUnavailable
   maxUnavailable: 1
   # -- Node selector for querier pods
@@ -923,6 +931,9 @@ queryFrontend:
               matchLabels:
                 {{- include "tempo.selectorLabels" (dict "ctx" . "component" "query-frontend") | nindent 12 }}
             topologyKey: topology.kubernetes.io/zone
+
+  # -- Init containers for query-frontend pods
+  initContainers: []
   # -- Pod Disruption Budget maxUnavailable
   maxUnavailable: 1
   # -- Node selector for query-frontend pods

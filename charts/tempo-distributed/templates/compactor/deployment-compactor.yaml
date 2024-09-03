@@ -54,6 +54,8 @@ spec:
       hostAliases:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        {{- toYaml .Values.compactor.initContainers | nindent 8 }}
       containers:
         - args:
             - -target=compactor
@@ -62,6 +64,10 @@ spec:
             {{- with .Values.compactor.extraArgs }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
+        # - command:
+        #     - sh
+        #     - -c
+        #     - "sleep 3000"
           image: {{ include "tempo.imageReference" $dict }}
           imagePullPolicy: {{ .Values.tempo.image.pullPolicy }}
           name: compactor
